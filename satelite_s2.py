@@ -45,41 +45,42 @@ def getimg(Tpath, Spath, x, y):
 
 
 
+if __name__ == "__main__":
+    for zoom in [17]:
+        path = r"/home/machine/code/dataset/sateliteimageNY" + str(zoom)
+        if not os.path.exists(path):
+            os.mkdir(path)
 
-for zoom in [17]:
-    path = r"/home/machine/code/dataset/sateliteimageNY" + str(zoom)
-    if not os.path.exists(path):
-        os.mkdir(path)
+    # 下载切片的zoom
+        lefttop = deg2num(40.839593, -74.116635, zoom)  # 下载切片的左上角角点
+        rightbottom = deg2num(40.600591, -73.769079, zoom)
 
- # 下载切片的zoom
-    lefttop = deg2num(40.839593, -74.116635, zoom)  # 下载切片的左上角角点
-    rightbottom = deg2num(40.600591, -73.769079, zoom)
+        print(str(lefttop[0]))
+        print(str(rightbottom[0]))
+        print(str(lefttop[1]))
+        print(str(rightbottom[1]))
+        print("共" + str(lefttop[0] - rightbottom[0]))
+        print("共" + str(lefttop[1] - rightbottom[1]))
 
-    print(str(lefttop[0]))
-    print(str(rightbottom[0]))
-    print(str(lefttop[1]))
-    print(str(rightbottom[1]))
-    print("共" + str(lefttop[0] - rightbottom[0]))
-    print("共" + str(lefttop[1] - rightbottom[1]))
-
-    for x in range(lefttop[0], rightbottom[0]):
-        for y in range(lefttop[1], rightbottom[1]):
-            c = os.path.join(path, str(x) + "_" + str(y) + ".png")
-            if os.access(c, os.F_OK) == True:
-                print ( str(c) + 'has been downloaded')
-                continue
-            else:
-                tilepath = "http://mt2.google.cn/vt/lyrs=s&scale=2&hl=zh-CN&gl=cn&x=" + str(x) + "&y=" + str(y) + "&z=" + str(zoom)
-        # 天地图的url 可以换成谷歌地图的
-                getimg(tilepath, os.path.join(path, str(x) + "_" + str(y) + ".png"), x, y)
+        for x in range(lefttop[0], rightbottom[0]):
+            for y in range(lefttop[1], rightbottom[1]):
+                c = os.path.join(path, str(x) + "_" + str(y) + ".png")
+                if os.access(c, os.F_OK) == True:
+                    print ( str(c) + 'has been downloaded')
+                    continue
+                else:
+                    tilepath = "http://mt2.google.cn/vt/lyrs=s&scale=2&hl=zh-CN&gl=cn&x=" + str(x) + "&y=" + str(y) + "&z=" + str(zoom) \
+                    + "&apistyle=s.t:3|s.e:l|p.v:off"
+            # 天地图的url 可以换成谷歌地图的
+                    getimg(tilepath, os.path.join(path, str(x) + "_" + str(y) + ".png"), x, y)
 
 
-        #ret = os.access(path, os.F_OK)
-            #for retrying in range(1, 10):
-                #if os.access(path, os.F_OK) == False:
-                    #print('retrying' + str(retrting))
-                    #getimg(tilepath, os.path.join(path, str(x) + "_" + str(y) + ".png"), x, y)
-                #else:
-                    #break
+            #ret = os.access(path, os.F_OK)
+                #for retrying in range(1, 10):
+                    #if os.access(path, os.F_OK) == False:
+                        #print('retrying' + str(retrting))
+                        #getimg(tilepath, os.path.join(path, str(x) + "_" + str(y) + ".png"), x, y)
+                    #else:
+                        #break
 
-print('completed')
+    print('completed')

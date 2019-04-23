@@ -68,7 +68,7 @@ if __name__ == "__main__":
                     continue#断点续传
                 else:
                     tilepath = "http://mt2.google.cn/vt/lyrs=m&scale=2&hl=zh-CN&gl=cn&x=" + str(x) + "&y=" + str(
-                        y) + "&z=" + str(zoom) + "&apistyle=s.t:3|s.e:l|p.v:off"
+                        y) + "&z=" + str(zoom) + "&apistyle=s.t:0|s.e:l|p.v:off"
                     # 天地图的url 可以换成谷歌地图的
                     getimg(tilepath, os.path.join(path, str(x) + "_" + str(y) + ".png"), x, y)
 
